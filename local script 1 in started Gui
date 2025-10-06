@@ -1,0 +1,489 @@
+-- local script 1
+
+local screen = script.Parent 
+local uiinven = screen.inven
+
+local rs = game:GetService("RunService")
+local hold
+
+
+local hold = false
+local drag = false
+local runservice = game:GetService("RunService")
+local dragghost
+
+
+local uis = game:GetService("UserInputService")
+
+
+local itm = nil
+local v_change = nil
+local bar = screen.Bar
+
+local sl_1 = false
+local sl_2 = false
+local sl_3 = false
+local sl_4 = false
+local sl_5 = false
+local sl_6 = false
+local sl_7 = false
+local sl_8 = false
+local sl_9 = false
+
+local eq_module = require(game.ReplicatedStorage:WaitForChild("eq_value"))
+
+
+
+for _,v in pairs(uiinven:GetDescendants()) do
+	if v:IsA("Frame")  and v.Name == "Slot" then
+		
+		
+		v.MouseEnter:Connect(function()
+			if hold then
+				print(v.Position)
+				
+				if not v:FindFirstChild("Value") then-------------Kéo vào inventory
+					for _,v2 in pairs(bar:GetDescendants()) do
+						if v2:IsA("ImageLabel") then
+							if v2.Name == "itembl" then
+								v2.Visible = false
+								eq_module.bar_haveitem = false
+								if eq_module.StopGhostBlock then
+									eq_module.StopGhostBlock()
+								end
+							end
+						end
+					end
+				end
+				if v:FindFirstChild("Value") then -- có slot số
+					if eq_module.bar_haveitem == true then
+						if v:FindFirstChild("itembl") then
+							print("not everything")
+						else
+
+							if eq_module.StopGhostBlock then
+								eq_module.StopGhostBlock()
+							end
+						end
+					end
+				end
+				
+				
+				if v:FindFirstChild("Value") then----------------kéo ô cầm đồ
+					local vl_string = v:FindFirstChild("Value")
+					local vl = tonumber(vl_string.Value)
+					if vl == 1 then
+						sl_1 = true
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 2 then
+						sl_1 = false
+						sl_2 = true
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 3 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = true
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 4 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = true
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 5 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = true
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 6 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = true
+						sl_7 = false
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 7 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = true
+						sl_8 = false
+						sl_9 = false
+					elseif vl == 8 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = true
+						sl_9 = false
+					elseif vl == 9 then
+						sl_1 = false
+						sl_2 = false
+						sl_3 = false
+						sl_4 = false
+						sl_5 = false
+						sl_6 = false
+						sl_7 = false
+						sl_8 = false
+						sl_9 = true
+					end
+					print("yeeahhhh letgooo")
+					
+					for _,v2 in pairs(bar:GetDescendants()) do
+						if v2:IsA("ImageLabel") then
+							if v2.Name == "itembl" then
+								local vatpham = v2
+								
+								
+								
+								if sl_1 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit1
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 1 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_2 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit2
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 2 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_3 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit3
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 3 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_4 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit4
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 4 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_5 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit5
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 5 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_6 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit6
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 6 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_7 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit7
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 7 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_8 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit8
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 8 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								elseif sl_9 == true then
+									vatpham.Visible = true
+									vatpham.Parent = bar.Hit9
+									eq_module.bar_haveitem = true
+									if eq_module.eq_hit == 9 then
+										if eq_module.StartGhostBlock then
+											eq_module.StartGhostBlock()
+										end
+									end
+								end
+								   
+							end
+						end
+					end
+					
+				end
+				
+				v_change = v
+			end
+		end)
+		v.MouseLeave:Connect(function()
+			if hold and v_change == v then
+				
+				
+				v_change = nil
+				sl_1 = false
+				sl_2 = false
+				sl_3 = false
+				sl_4 = false
+				sl_5 = false
+				sl_6 = false
+				sl_7 = false
+				sl_8 = false
+				sl_9 = false
+				
+			end
+		end)
+		
+		
+		v.InputBegan:Connect(function(i,g)
+			if i.UserInputType == Enum.UserInputType.MouseButton1 then
+				if v:FindFirstChild("itembl") then
+					print("true")
+					itm = v:FindFirstChild("itembl")
+					hold = true
+					drag = true
+					
+					local ghostitem = itm:Clone()
+					ghostitem.Size = UDim2.fromOffset(itm.AbsoluteSize.X * 1, itm.AbsoluteSize.Y * 1)
+					ghostitem.AnchorPoint = Vector2.new(0.5,0.5)
+					ghostitem.BackgroundTransparency = 1
+					ghostitem.ZIndex = 5
+					ghostitem.Parent = screen
+					
+					if hold then
+						if drag then
+							itm.Visible = false
+
+							dragghost = runservice.RenderStepped:Connect(function()
+								local mousePos = uis:GetMouseLocation() - game:GetService("GuiService"):GetGuiInset()
+								ghostitem.Position = UDim2.fromOffset(mousePos.X, mousePos.Y)
+								if drag == false then
+									dragghost:Disconnect()
+									ghostitem:Destroy()
+								end
+							end)
+
+						end
+					end
+					
+				else
+					print("false")
+				end
+			end
+		end)
+
+		v.InputEnded:Connect(function(i,g)
+			if i.UserInputType == Enum.UserInputType.MouseButton1 then
+				if hold then
+					if v_change then
+						print("dat")
+						itm.Visible = true
+						itm.Parent = v_change
+						
+						hold = false
+						drag = false
+						
+						
+						
+					end
+					
+				else
+					print("end")
+				end
+			end
+		end)
+
+		
+	end
+end
+	
+
+
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.One then
+
+			if eq_module.eq_hit ~= 1 then
+				eq_module.eq_hit = 1
+				print("sethit1")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Two then
+
+			if eq_module.eq_hit ~= 2 then
+				eq_module.eq_hit = 2
+				print("sethit2")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Three then
+
+			if eq_module.eq_hit ~= 3 then
+				eq_module.eq_hit = 3
+				print("sethit3")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Four then
+
+			if eq_module.eq_hit ~= 4 then
+				eq_module.eq_hit = 4
+				print("sethit4")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Five then
+			if eq_module.eq_hit ~= 5 then
+				eq_module.eq_hit = 5
+				print("sethit5")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Six then
+
+			if eq_module.eq_hit ~= 6 then
+				eq_module.eq_hit = 6
+				print("sethit6")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Seven then
+			if eq_module.eq_hit ~= 7 then
+				eq_module.eq_hit = 7
+				print("sethit7")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Eight then
+
+			if eq_module.eq_hit ~= 8 then
+				eq_module.eq_hit = 8
+				print("sethit8")
+			end
+
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Nine then
+
+			if eq_module.eq_hit ~= 9 then
+				eq_module.eq_hit = 9
+				print("sethit9")
+			end
+
+		end
+	end
+end)
+
+local char = game.Players.LocalPlayer.Character
+local humanoid = char:FindFirstChild("Humanoid")
+humanoid.Died:Connect(function()
+	eq_module.eq_hit = 9
+	print("reset eq")
+end)
