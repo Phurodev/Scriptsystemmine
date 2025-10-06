@@ -1,0 +1,78 @@
+-- script module 1
+
+local module = {
+	
+	item_1 = UDim2.new(0.054, 0,0.485,0);
+	
+	item_2 = UDim2.new(0.164, 0,0.485,0);
+	
+	item_3 = UDim2.new(0.274, 0,0.485,0);
+	
+	item_4 =UDim2.new(0.386, 0,0.485,0) ;
+	
+	item_5 = UDim2.new(0.499, 0,0.485,0);
+	
+	item_6 = UDim2.new(0.609, 0,0.485,0);
+	
+	item_7 = UDim2.new(0.719, 0,0.485,0);
+	
+	item_8 = UDim2.new(0.829, 0,0.485,0);
+	
+	item_9 = UDim2.new(0.937, 0,0.485,0);
+	
+	
+	
+	on_inventory = UDim2.new(0.5, 0,0.499, 0);
+	off_inventory = UDim2.new(0.5, 0,1.380, 0)
+	
+	
+	
+	
+}
+
+return module
+
+-- script module 2
+
+local module = {}
+
+function module.Turn_on(inven,backgr,udm2)
+	backgr.Visible = true
+	
+	inven.Visible = true
+	inven:TweenPosition(udm2,"Out","Quart",0.5,true)
+	
+	
+end
+
+function module.Turn_off(inven,backgr,udm2)
+	backgr.Visible = false
+	
+    inven:TweenPosition(udm2,"Out","Quart",0.5,true)
+	task.delay(0.4,function()
+		inven.Visible = false
+	end)
+	
+
+
+end
+
+return module
+
+-- script module 3
+
+local module = {
+
+	eq_hit = 9,
+	bar_haveitem = false,
+	StartGhostBlock = nil,
+	StopGhostBlock = nil
+	
+}
+
+return module
+
+
+-- by PhuRodev(RBSPLOIT)
+-- thank!!!
+
