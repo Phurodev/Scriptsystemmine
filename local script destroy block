@@ -1,0 +1,120 @@
+-- local script destroy block
+local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local runservice = game:GetService("RunService")
+local uis = game:GetService("UserInputService")
+local runs_connect
+local remote = game.ReplicatedStorage.destroyblock
+
+local selected
+local highlight = Instance.new("Highlight")
+highlight.Parent = plr.PlayerGui
+
+
+local function add(block)
+	
+	highlight.Adornee = block
+	highlight.Enabled = true
+	
+end
+
+
+local function remove(block)
+	
+	highlight.Adornee = nil
+	highlight.Enabled = false
+	selected = nil
+	
+end
+
+
+local function selectblock(block)
+	if not block or block.Name ~= "block" then remove(selected) end
+	
+	if selected ~= block then
+		remove(selected)
+		add(block)
+		
+		selected = block
+	else
+		add(block)
+	end
+	
+end
+
+
+
+local function BuildDestroy()
+	local starts = mouse.UnitRay.Origin
+	local direction = mouse.UnitRay.Direction * 100
+
+	local params = RaycastParams.new()
+	params.FilterDescendantsInstances = {plr.Character}
+	params.FilterType = Enum.RaycastFilterType.Exclude
+
+	local raycast = workspace:Raycast(starts,direction,params)
+	if raycast.Instance.Name == "block" then
+		local bl = raycast.Instance
+		selectblock(bl)
+	else
+		remove(selected)
+	end
+	
+end
+
+
+local function destroyblock()
+	local starts = mouse.UnitRay.Origin
+	local direction = mouse.UnitRay.Direction * 100
+
+	local params = RaycastParams.new()
+	params.FilterDescendantsInstances = {plr.Character}
+	params.FilterType = Enum.RaycastFilterType.Exclude
+
+	local raycast = workspace:Raycast(starts,direction,params)
+	
+	if raycast.Instance.Name == "block" then
+		remote:FireServer(raycast.Instance)
+	else
+		return nil
+	end
+    
+end
+
+local breaktool = false
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+	
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.T then
+			
+			if not breaktool then
+				runs_connect = runservice.RenderStepped:Connect(function()
+					breaktool = true
+
+					BuildDestroy()
+
+				end)
+			else
+				breaktool = false
+				runs_connect:Disconnect()
+				remove(selected)
+
+			end
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.MouseButton1 then
+		if breaktool then
+			remove(selected)
+			destroyblock()
+		end
+	end
+end)
+
