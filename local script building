@@ -1,0 +1,341 @@
+local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local runservice = game:GetService("RunService")
+
+local ghost_build
+local runs_connect
+local remote = game.ReplicatedStorage.build
+local pos_server
+
+local char = plr.Character
+local uis = game:GetService("UserInputService")
+local bar = plr.PlayerGui.Bar
+
+local hit1 = bar.Bar.Hit1
+local hit2 = bar.Bar.Hit2
+local hit3 = bar.Bar.Hit3
+local hit4 = bar.Bar.Hit4
+local hit5 = bar.Bar.Hit5
+local hit6 = bar.Bar.Hit6
+local hit7 = bar.Bar.Hit7
+local hit8 = bar.Bar.Hit8
+local hit9 = bar.Bar.Hit9
+
+local eq_module = require(game.ReplicatedStorage:WaitForChild("eq_value"))
+
+local Guimax = plr.PlayerGui.ScreenGui.TextLabel
+
+local eq_tool = false
+
+
+local function snapToGrid(pos, size)
+	return Vector3.new(
+		math.floor(pos.X / size.X + 0.5) * size.X,
+		math.floor(pos.Y / size.Y + 0.5) * size.Y,
+		math.floor(pos.Z / size.Z + 0.5) * size.Z
+	)
+end
+
+
+local function PositionBuild()
+	
+
+	
+	local starts = mouse.UnitRay.Origin
+	local direction = mouse.UnitRay.Direction * 100
+	
+	local params = RaycastParams.new()
+	params.FilterDescendantsInstances = {plr.Character, ghost_build}
+	params.FilterType = Enum.RaycastFilterType.Exclude
+	
+	local raycast = workspace:Raycast(starts,direction,params)
+	
+	if raycast then
+		local normal = raycast.Normal
+		local pos = raycast.Position + normal * (ghost_build.Size.Y / 2) 
+		local size = ghost_build.Size
+		
+		local grid = snapToGrid(pos,size)
+		return grid
+	end
+	return nil
+	
+end
+
+local function startghostblock()
+	Guimax.Visible = true
+
+	ghost_build = Instance.new("PartOperation")
+	ghost_build.Size = Vector3.new(5,5,5)
+	ghost_build.Transparency = 0.6
+	ghost_build.Name = "ghost_build"
+	ghost_build.CanCollide = false
+	ghost_build.Anchored = true
+	ghost_build.Parent = workspace
+	local pos = PositionBuild()
+
+	if pos then
+		ghost_build.Position = Vector3.new(pos.X,pos.y,pos.Z)
+	end
+
+
+	runs_connect = runservice.RenderStepped:Connect(function()
+		local pos = PositionBuild()
+
+		if pos then
+
+			pos_server = pos
+			ghost_build.Position = ghost_build.Position:Lerp(pos, 0.2)
+
+
+		end
+
+	end)
+end
+
+local function stopghostblock()
+	Guimax.Visible = false
+	runs_connect:Disconnect()
+	ghost_build:Destroy()
+end
+
+eq_module.StartGhostBlock = function()
+	if eq_module.eq_hit ~= 0 then
+		startghostblock()
+		eq_tool = true
+	end
+end
+
+eq_module.StopGhostBlock = function()
+	if eq_module.eq_hit ~= 0 then
+		if eq_tool == true then
+			stopghostblock()
+			eq_tool = false
+		end
+	end
+end
+
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.One then
+		
+			if hit1:FindFirstChild("itembl") then
+				
+				if hit1:FindFirstChild("itembl").Visible == true then
+					print("true")
+				    eq_tool = true
+				    startghostblock()
+				end
+				
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+
+		end
+	end
+end)
+
+
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Two then
+
+			if hit2:FindFirstChild("itembl") then
+				if hit2:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Three then
+
+			if hit3:FindFirstChild("itembl") then
+				if hit3:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Four then
+
+			if hit4:FindFirstChild("itembl") then
+				if hit4:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Five then
+
+			if hit5:FindFirstChild("itembl") then
+				if hit5:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Six then
+
+			if hit6:FindFirstChild("itembl") then
+				if hit6:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Seven then
+
+			if hit7:FindFirstChild("itembl") then
+				if hit7:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Eight then
+
+			if hit8:FindFirstChild("itembl") then
+				if hit8:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Nine then
+
+			if hit9:FindFirstChild("itembl") then
+				if hit9:FindFirstChild("itembl").Visible == true then
+					print("true")
+					eq_tool = true
+					startghostblock()
+				end
+			else
+				if eq_tool == true then
+					print("false")
+					eq_tool = false
+					stopghostblock()
+				end
+			end
+		end
+	end
+end)
+
+
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+	if i.UserInputType == Enum.UserInputType.MouseButton1 then
+		if eq_tool then
+			remote:FireServer(pos_server)
+		end
+	end
+end)
+
