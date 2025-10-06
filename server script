@@ -1,0 +1,53 @@
+-- script server
+
+
+
+local remote = game.ReplicatedStorage.build
+local remote2 = game.ReplicatedStorage.destroyblock
+local block_real = game.ReplicatedStorage.block_build
+
+
+
+game.Players.PlayerAdded:Connect(function(plr)
+	plr.CharacterAdded:Connect(function(char)
+		
+		local Guimax = plr.PlayerGui.ScreenGui.TextLabel
+		local max = 64
+		
+		remote.OnServerEvent:Connect(function(players,pos_server)
+			if players == plr then
+				
+				if max >= 1 then
+					local block = block_real:Clone()
+					block.Position = pos_server
+					block.Size = Vector3.new(5,5,5)
+					block.Anchored = true
+					block.Name = "block"
+					block.Parent = workspace
+				end
+				
+				if max >= 1 then
+					max = max -1
+					Guimax.Text = max.."/64"
+				elseif max == 0 then
+					return nil
+				end
+				
+			end 
+		end)
+		
+		
+		
+		remote2.OnServerEvent:Connect(function(players, block)
+			if players == plr then
+				max = max +1
+				Guimax.Text = max.."/64"
+				block:Destroy()
+			end
+		end)
+		
+		
+		
+	end)
+end)
+
