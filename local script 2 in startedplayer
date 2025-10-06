@@ -1,0 +1,170 @@
+-- local script 2
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local uis = game:GetService("UserInputService")
+local Settingbar = require(game.ReplicatedStorage.pos)
+local bar = plr.PlayerGui.Bar
+local eq = bar.Bar:WaitForChild("eq")
+local backgr = bar:WaitForChild("bacground")
+local inven = bar:WaitForChild("inven")
+local twenui = require(game.ReplicatedStorage.tweneui)
+
+local hit1 = bar.Bar.Hit1
+local hit2 = bar.Bar.Hit2
+local hit3 = bar.Bar.Hit3
+local hit4 = bar.Bar.Hit4
+local hit5 = bar.Bar.Hit5
+local hit6 = bar.Bar.Hit6
+local hit7 = bar.Bar.Hit7
+local hit8 = bar.Bar.Hit8
+local hit9 = bar.Bar.Hit9
+
+local E_incountdown = 0.5
+local E_count = false
+local E_in = false
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.E then
+			
+			if not E_in then
+				if not E_count then
+					twenui.Turn_on(inven,backgr,Settingbar.on_inventory)
+					E_in = true
+					E_count = true
+					task.delay(E_incountdown,function()
+						E_count = false
+					end)
+				else
+					print("wait")
+				end
+			     
+			else
+				
+				if not E_count then
+					twenui.Turn_off(inven,backgr,Settingbar.off_inventory)
+					E_in = false
+					E_count = true
+					task.delay(E_incountdown,function()
+						E_count = false
+					end)
+				else
+					print("wait")
+				end
+			end
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+	
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.One then
+			
+			eq.Position = Settingbar.item_1
+			
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Two then
+			
+			eq.Position = Settingbar.item_2
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Three then
+			
+			eq.Position = Settingbar.item_3
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Four then
+			
+			eq.Position = Settingbar.item_4
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Five then
+			
+			eq.Position = Settingbar.item_5
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Six then
+			
+			eq.Position = Settingbar.item_6
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Seven then
+		
+			eq.Position = Settingbar.item_7
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Eight then
+			
+			eq.Position = Settingbar.item_8
+			
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,v)
+	if v then return end
+
+	if i.UserInputType == Enum.UserInputType.Keyboard then
+		if i.KeyCode == Enum.KeyCode.Nine then
+			
+			eq.Position = Settingbar.item_9
+			
+		end
+	end
+end)
